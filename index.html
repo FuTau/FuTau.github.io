@@ -19,12 +19,12 @@
     p {
       text-indent: 2em;
       margin: 20px auto;
-      max-width: 800px;
+      max-width: 1200px;
     }
     ul {
       list-style-type: none;
       padding: 0;
-      max-width: 800px;
+      max-width: 1200px;
       margin: 20px auto;
     }
     li {
@@ -41,8 +41,8 @@
 </head>
 <body>
   <center><h1>DAS Crawler Results</h1></center>
-  <center><h2>Builder: Fu Tao - <span id="timestamp"></span></h2></center>
-  <p>This site was created to showcase the titles of some of the articles on Distributed Acoustic Sensing (DAS), which currently include the journals JGR Solid Earth, Nature Communication, and Nature Geophysics.</p>
+  <center><h4>Builder: Fu Tao - <span id="timestamp"></span></h4></center>
+  <p>This site was created to showcase the titles of some of the articles on Distributed Acoustic Sensing (DAS), which currently include the journals JGR Solid Earth, Nature Communication, and Nature Geophysics. And I just show the title there. If you want to get access to any of them, you can search it using your browser.</p>
   <ul id="articleList"></ul>
 
   <script>
@@ -57,9 +57,9 @@
         .then(response => response.json())
         .then(data => {
           const articleList = document.getElementById('articleList');
-          data.forEach(article => {
+          data.forEach((article, index) => {
             const listItem = document.createElement('li');
-            listItem.textContent = article.Title;
+            listItem.textContent = `${index + 1}. ${article.Title}`;
             articleList.appendChild(listItem);
           });
         })
