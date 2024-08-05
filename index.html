@@ -4,28 +4,69 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Personal site</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f9;
+    }
+    h1, h2 {
+      color: #333;
+      text-align: center;
+    }
+    p {
+      text-indent: 2em;
+      margin: 20px auto;
+      max-width: 800px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+      max-width: 800px;
+      margin: 20px auto;
+    }
+    li {
+      padding: 10px;
+      background-color: #e0e0e0;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    li:hover {
+      background-color: #c0c0c0;
+    }
+  </style>
 </head>
 <body>
   <center><h1>DAS Crawler Results</h1></center>
-  <p>This site was created to showcase the titles of some of the articles on Distributed Acoustic Sensing(DAS), which currently include the journals JGR Solid Earth, Nature Communication, and Nature Geophysics.</p>
+  <center><h2>Builder: Fu Tao - <span id="timestamp"></span></h2></center>
+  <p>This site was created to showcase the titles of some of the articles on Distributed Acoustic Sensing (DAS), which currently include the journals JGR Solid Earth, Nature Communication, and Nature Geophysics.</p>
   <ul id="articleList"></ul>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('articles.json')
-                .then(response => response.json())
-                .then(data => {
-                    const articleList = document.getElementById('articleList');
-                    data.forEach(article => {
-                        const listItem = document.createElement('li');
-                        listItem.textContent = article.Title;
-                        articleList.appendChild(listItem);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add timestamp
+      const timestampSpan = document.getElementById('timestamp');
+      const now = new Date();
+      timestampSpan.textContent = now.toLocaleString();
+
+      // Fetch and display articles
+      fetch('articles.json')
+        .then(response => response.json())
+        .then(data => {
+          const articleList = document.getElementById('articleList');
+          data.forEach(article => {
+            const listItem = document.createElement('li');
+            listItem.textContent = article.Title;
+            articleList.appendChild(listItem);
+          });
+        })
+        .catch(error => {
+          console.error('Error:', error);
         });
-    </script>
+    });
+  </script>
 </body>
 </html>
