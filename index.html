@@ -8,9 +8,24 @@
 <body>
   <center><h1>DAS Crawler Results</h1></center>
   <p>This site was created to showcase the titles of some of the articles on Distributed Acoustic Sensing(DAS), which currently include the journals JGR Solid Earth, Nature Communication, and Nature Geophysics.</p>
-  <ul>
-  <li>Frequency-Bessel Transform Method for Multimodal Dispersion Measurement of Surface Waves From Distributed Acoustic Sensing Data</li>
-  <li>Imaging the Garlock Fault Zone With a Fiber: A Limited Damage Zone and Hidden Bimaterial Contrast</li>
-  </ul>
+  <ul id="articleList"></ul>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('articles.json')
+                .then(response => response.json())
+                .then(data => {
+                    const articleList = document.getElementById('articleList');
+                    data.forEach(article => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = article.Title;
+                        articleList.appendChild(listItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
 </body>
 </html>
