@@ -43,9 +43,11 @@
 <body>
   <center><h1>DAS Crawler Results</h1></center>
   <center><h4>Builder: Fu Tao - <span id="timestamp"></span></h4></center>
-  <p>This site was created to showcase the titles of some of the articles on Distributed Acoustic Sensing (DAS), which currently include the journals JGR Solid Earth(Earliest 2000 articles), Nature Communication(first 20 pages), and Nature Geophysics. And I just show the title there. If you want to get access to any of them, you can search it using your browser.</p>
-  <ul id="articleList"></ul>
-
+  <p>This site was created to showcase the titles of some of the articles on Distributed Acoustic Sensing (DAS), which currently include the journals JGR Solid Earth(Earliest 2000 articles) and Nature Communication(all). And I just show the title there. If you want to get access to any of them, you can search it using your browser.</p>
+  <h3>JGR Solid Earth</h3>
+  <ul id="jgrarticleList"></ul>
+  <h3>Nature Communication</h3>
+  <ul id="ncarticleList"></ul>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Add timestamp
@@ -53,11 +55,25 @@
       const now = new Date();
       timestampSpan.textContent = now.toLocaleString();
 
-      // Fetch and display articles
-      fetch('articles.json')
+      // Fetch and display JGR articles
+      fetch('jgrarticles.json')
         .then(response => response.json())
         .then(data => {
-          const articleList = document.getElementById('articleList');
+          const articleList = document.getElementById('jgrarticleList');
+          data.forEach((article, index) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${index + 1}. ${article.Title}`;
+            articleList.appendChild(listItem);
+          });
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      // Fetch and display NC articles
+      fetch('ncarticles.json')
+        .then(response => response.json())
+        .then(data => {
+          const articleList = document.getElementById('ncarticleList');
           data.forEach((article, index) => {
             const listItem = document.createElement('li');
             listItem.textContent = `${index + 1}. ${article.Title}`;
