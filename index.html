@@ -54,6 +54,8 @@
   <p>Please note that I am not a Python crawler expert, and the results provided here are just for reference. If you have any suggestions, you can raise them in the Issue section of the repository corresponding to this static website</p>
   <h3>JGR Solid Earth</h3>
   <ul id="jgrarticleList"></ul>
+  <h3>JGR Atmospheres</h3>
+  <ul id="jgraarticleList"></ul>
   <h3>Nature Communication</h3>
   <ul id="ncarticleList"></ul>
   <script>
@@ -82,6 +84,20 @@
         .then(response => response.json())
         .then(data => {
           const articleList = document.getElementById('ncarticleList');
+          data.forEach((article, index) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${index + 1}. ${article.Title}`;
+            articleList.appendChild(listItem);
+          });
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      // Fetch and display JGRA articles
+      fetch('jgraarticles.json')
+        .then(response => response.json())
+        .then(data => {
+          const articleList = document.getElementById('jgraarticleList');
           data.forEach((article, index) => {
             const listItem = document.createElement('li');
             listItem.textContent = `${index + 1}. ${article.Title}`;
