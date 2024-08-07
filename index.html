@@ -56,6 +56,8 @@
   <ul id="jgrarticleList"></ul>
   <h3>JGR Atmospheres</h3>
   <ul id="jgraarticleList"></ul>
+  <h3>GRL</h3>
+  <ul id="grlarticleList"></ul>
   <h3>Nature Communication</h3>
   <ul id="ncarticleList"></ul>
   <script>
@@ -98,6 +100,20 @@
         .then(response => response.json())
         .then(data => {
           const articleList = document.getElementById('jgraarticleList');
+          data.forEach((article, index) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${index + 1}. ${article.Title}`;
+            articleList.appendChild(listItem);
+          });
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      // Fetch and display GRL articles
+      fetch('grlarticles.json')
+        .then(response => response.json())
+        .then(data => {
+          const articleList = document.getElementById('grlarticleList');
           data.forEach((article, index) => {
             const listItem = document.createElement('li');
             listItem.textContent = `${index + 1}. ${article.Title}`;
